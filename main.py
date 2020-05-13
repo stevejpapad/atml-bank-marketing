@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import sklearn
 
-
 from ml import trees
 from data_prep import prep, min_max_scale, handle_imbalance
 
@@ -15,7 +14,7 @@ data = prep(data)
 
 X = data.iloc[:, 0:-1]
 Y = data.iloc[:, -1]
-X_res, Y_res = handle_imbalance(X,Y,under = False,over=True,ensemble = False)
+X_res, Y_res = handle_imbalance(X,Y,under = False,over=True,ensemble=False)
 corr = data.corr()
 cor_plot = sns.heatmap(corr, annot=True)
 plt.show()
