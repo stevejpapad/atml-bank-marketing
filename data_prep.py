@@ -3,9 +3,14 @@ from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import MinMaxScaler
 
+
 def prep(data):
     # print(data['y'].value_counts())
     # no     36548 , yes     4640
+    # corr = data.corr()
+    # cor_plot = sns.heatmap(corr, annot=True)
+    # plt.show()
+    # NOTE: y corr: 40% with 'duration', 23% with 'previous' etc
 
     data[['y']] = data[['y']].replace(['no'], 0)
     data[['y']] = data[['y']].replace(['yes'], 1)
@@ -31,8 +36,5 @@ def min_max_scale(data):
     minMaxScaler.fit(data)
     final = minMaxScaler.transform(data)
     final = pd.DataFrame.from_dict(final)
-
-    pd.set_option('display.expand_frame_repr', False)
     final.columns = data.columns
-    print(final)
     return final
