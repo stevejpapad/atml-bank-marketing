@@ -56,7 +56,7 @@ X.columns
 
 
 def ml(model_in, x_input: pd.DataFrame, y_input: pd.DataFrame):
-    x_train, x_test, y_train, y_test = model_selection.train_test_split(x_input, y_input, test_size=0.1, random_state=5)
+    x_train, x_test, y_train, y_test = model_selection.train_test_split(x_input, y_input, test_size=0.1)# random_state=5
     model = model_in.fit(x_train, y_train)
     y_predict = model.predict(x_test)
     print("Accuracy Score: %.8f" % metrics.accuracy_score(y_test, y_predict))
@@ -74,6 +74,6 @@ def ml(model_in, x_input: pd.DataFrame, y_input: pd.DataFrame):
     graph.render("DT")
 
 
-modelDT = DecisionTreeClassifier(max_depth=4)
+modelDT = DecisionTreeClassifier(max_depth=4, class_weight={0: 1, 1: 10})
 print("Results of Decision Trees:")
 ml(modelDT, X, Y)
