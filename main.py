@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import sklearn
 from ml import trees, keras_nn, random_trees
-from data_prep import prep, min_max_scale, handle_imbalance
+from data_prep import prep, min_max_scale
+from imbalance_handling import handle_imbalance
 
 data = pd.read_csv('bank_data.csv', sep=';')
 data = prep(data)

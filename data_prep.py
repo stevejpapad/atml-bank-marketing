@@ -2,9 +2,9 @@ import pandas as pd
 from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import MinMaxScaler
-from imblearn.over_sampling import SMOTE
-from imblearn.under_sampling import ClusterCentroids
-from collections import Counter
+
+
+
 
 def prep(data):
     # print(data['y'].value_counts())
@@ -33,38 +33,7 @@ def prep(data):
     return data
 
 
-def handle_imbalance(X, Y, under, over, ensemble):
-    if under:
-        print('Performing undersampling')
-        print("Before Undersampling, counts of label '1': {}".format(sum(Y == 1)))
-        print("Before Undersampling, counts of label '0': {} \n".format(sum(Y == 0)))
 
-        cc = ClusterCentroids(random_state=0)
-        X_res, Y_res = cc.fit_resample(X, Y)
-        print(sorted(Counter(Y_res).items()))
-
-        print('After Undersampling, the shape of train_X: {}'.format(X_res.shape))
-        print('After Undersampling, the shape of train_y: {} \n'.format(Y_res.shape))
-
-        print("After Undersampling, counts of label '1': {}".format(sum(Y_res == 1)))
-        print("After Undersampling, counts of label '0': {}".format(sum(Y_res == 0)))
-        return X_res, Y_res
-
-    elif over:
-        print('Performing oversampling')
-        print("Before OverSampling, counts of label '1': {}".format(sum(Y == 1)))
-        print("Before OverSampling, counts of label '0': {} \n".format(sum(Y == 0)))
-        sm = SMOTE(random_state=2)  # sampling_strategy=1
-        X_res, Y_res = sm.fit_sample(X,Y)
-
-        print('After OverSampling, the shape of train_X: {}'.format(X_res.shape))
-        print('After OverSampling, the shape of train_y: {} \n'.format(Y_res.shape))
-
-        print("After OverSampling, counts of label '1': {}".format(sum(Y_res == 1)))
-        print("After OverSampling, counts of label '0': {}".format(sum(Y_res == 0)))
-        return X_res, Y_res
-    elif ensemble:
-        print('Performing combination')
 
 
 def min_max_scale(data):
