@@ -2,8 +2,10 @@ from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import ClusterCentroids
 from imblearn.under_sampling import NearMiss
 from collections import Counter
+from imblearn.combine import SMOTEENN
+from imblearn.combine import SMOTETomek
 
-def handle_imbalance(X, Y, under, over, ensemble):
+def handle_imbalance(X, Y, under, over, combine):
     if under:
         print('Performing undersampling')
         print("Before Undersampling, counts of label '1': {}".format(sum(Y == 1)))
@@ -45,5 +47,28 @@ def handle_imbalance(X, Y, under, over, ensemble):
         print("After OverSampling, counts of label '0': {}".format(sum(Y_res == 0)))
         return X_res, Y_res
 
-    elif ensemble:
+    elif combine:
         print('Performing combination')
+        print("Before Combination, counts of label '1': {}".format(sum(Y == 1)))
+        print("Before Combination, counts of label '0': {} \n".format(sum(Y == 0)))
+
+        #SMOTEENN
+        # smote_enn = SMOTEENN(random_state=0)
+        # X_res, Y_res = smote_enn.fit_sample(X, Y)
+        # print(sorted(Counter(Y_res).items()))
+        #
+
+        #SMOTETomek
+        smote_tomek = SMOTETomek(random_state=0)
+        X_res, Y_res = smote_tomek.fit_resample(X, Y)
+        print(sorted(Counter(Y_res).items()))
+        #
+
+        print('After Combination, the shape of train_X: {}'.format(X_res.shape))
+        print('After Combination, the shape of train_y: {} \n'.format(Y_res.shape))
+
+        print("After Combination, counts of label '1': {}".format(sum(Y_res == 1)))
+        print("After Combination, counts of label '0': {}".format(sum(Y_res == 0)))
+        return X_res, Y_res
+
+
