@@ -27,3 +27,10 @@ trees(X_res, Y_res, cost_weight, sensitive=True)
 # random_trees(X, Y, cost_weight, sensitive=True)
 # random_trees(X_res, Y_res, cost_weight, sensitive=False)
 # random_trees(X_res, Y_res, cost_weight, sensitive=True)
+
+# Explainability section
+# White box models
+# tree_viz(tree, X)
+# tree_to_text(tree, list(X.columns))
+# tree_feature_importance(tree, list(X.columns))
+# tree_local_interpretation(tree, X)

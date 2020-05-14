@@ -1,8 +1,5 @@
 import pandas as pd
-import sklearn
-import numpy as np
 from sklearn import model_selection, metrics, svm, tree, ensemble
-import graphviz
 from keras.models import Sequential
 from keras.layers import Dense
 
@@ -18,7 +15,7 @@ def trees(x_input: pd.DataFrame, y_input: pd.DataFrame, cost_weight, sensitive):
     model = model.fit(x_train, y_train)
     y_predict = model.predict(x_test)
     evaluate(y_test, y_predict, cost_weight)
-    # viz_tree(model, x_input)
+    return model
 
 
 def random_trees(x_input: pd.DataFrame, y_input: pd.DataFrame, cost_weight, sensitive):
@@ -55,17 +52,6 @@ def keras_nn(x_input: pd.DataFrame, y_input: pd.DataFrame, cost_weight):
     model.fit(x_train, y_train, epochs=100, batch_size=64)
     y_predict = model.predict(x_test)
     evaluate(y_test, y_predict, cost_weight)
-
-
-def viz_tree(model, x):
-    # Visualize the trained tree.
-    dot_data = sklearn.tree.export_graphviz(model, out_file=None,
-                                            filled=True, rounded=True,
-                                            special_characters=True,
-                                            feature_names=x.columns[:])
-    graph = graphviz.Source(dot_data)
-    graph.render("DT")
-
 
 def evaluate(y_test, y_predict, cost_weight):
     print("Accuracy Score: %.4f" % metrics.accuracy_score(y_test, y_predict))
