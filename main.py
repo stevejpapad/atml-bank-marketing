@@ -13,7 +13,7 @@ data = prep(data)
 
 X = data.iloc[:, 0:-1]
 Y = data.iloc[:, -1]
-X_res, Y_res = handle_imbalance(X, Y, under=False, over=False, combine=True)
+X_res, Y_res = handle_imbalance(X, Y, under=True, over=False, combine=False)
 cost_weight = {0: 1, 1: 10}
 
 print("--- Decision Trees ---")
