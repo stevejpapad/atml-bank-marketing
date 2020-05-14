@@ -4,32 +4,32 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 
-def trees(x_input: pd.DataFrame, y_input: pd.DataFrame, cost_weight, sensitive):
+def trees(x_train, x_test, y_train, y_test, cost_weight, sensitive):
     if not sensitive:
         cost = {0: 1, 1: 1}
     else:
         cost = cost_weight
     model = tree.DecisionTreeClassifier(max_depth=4, class_weight=cost)  # , class_weight=cost_weight
-    x_train, x_test, y_train, y_test = model_selection.train_test_split(x_input, y_input,
-                                                                        test_size=0.1)  # random_state=5
+    # x_train, x_test, y_train, y_test = model_selection.train_test_split(x_input, y_input,
+    #                                                                     test_size=0.1)  # random_state=5
     model = model.fit(x_train, y_train)
     y_predict = model.predict(x_test)
     evaluate(y_test, y_predict, cost_weight)
     return model
 
 
-def random_trees(x_input: pd.DataFrame, y_input: pd.DataFrame, cost_weight, sensitive):
+def random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive):
     if not sensitive:
         cost = {0: 1, 1: 1}
     else:
         cost = cost_weight
     model = ensemble.RandomForestClassifier(max_depth=3, random_state=0, class_weight=cost)
-    x_train, x_test, y_train, y_test = model_selection.train_test_split(x_input, y_input,
-                                                                        test_size=0.1)  # random_state=5
+    # x_train, x_test, y_train, y_test = model_selection.train_test_split(x_input, y_input,
+    #                                                                     test_size=0.1)  # random_state=5
     model = model.fit(x_train, y_train)
     y_predict = model.predict(x_test)
     evaluate(y_test, y_predict, cost_weight)
-    # viz_tree(model, x_input)
+    return model
 
 
 def sv_class(x_input: pd.DataFrame, y_input: pd.DataFrame, cost_weight):

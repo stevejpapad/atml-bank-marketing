@@ -22,7 +22,7 @@ def tree_feature_importance(model, columns):
     for feature, importance in zip(columns, model.feature_importances_):
         print(f"{feature}: {importance}")
 
-def tree_local_interpretation(model, x):
+def tree_bar_interpretation(model, x):
     weights = model.feature_importances_
     model_weights = pd.DataFrame({'features': list(x.columns), 'weights': list(weights)})
     model_weights = model_weights.sort_values(by='weights', ascending=False)
@@ -30,3 +30,8 @@ def tree_local_interpretation(model, x):
     sns.barplot(x="weights", y="features", data=model_weights)
     plt.xticks(rotation=90)
     plt.show()
+
+def tree_local_interpretation():
+    pass
+
+
