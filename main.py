@@ -20,7 +20,7 @@ X_res, Y_res = handle_imbalance(X, Y, under=False, over=False, combine=True)
 cost_weight = {0: 1, 1: 10}
 
 # x_train, x_test, y_train, y_test = model_selection.train_test_split(X, Y, test_size=0.1, random_state=5)
-x_train, x_test, y_train, y_test = model_selection.train_test_split(X_res, Y_res, test_size=0.1, random_state=5)
+x_train, x_test, y_train, y_test = model_selection.train_test_split(X_res, Y_res, test_size=0.3, random_state=5)
 
 print("--- Decision Trees ---")
 # tree = trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
