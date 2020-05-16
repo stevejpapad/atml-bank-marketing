@@ -1,4 +1,4 @@
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import SMOTE,ADASYN
 from imblearn.under_sampling import ClusterCentroids, NearMiss,TomekLinks
 from collections import Counter
 from imblearn.combine import SMOTEENN, SMOTETomek
@@ -40,8 +40,13 @@ def handle_imbalance(X, Y, under, over, combine):
         print("Before OverSampling, counts of label '0': {} \n".format(sum(Y == 0)))
 
         # SMOTE
-        sm = SMOTE(random_state=2)  # sampling_strategy=1
-        X_res, Y_res = sm.fit_sample(X, Y)
+        # sm = SMOTE(random_state=2)  # sampling_strategy=1
+        # X_res, Y_res = sm.fit_sample(X, Y)
+        #
+
+        #ADASYN
+        ada = ADASYN()
+        X_res,Y_res = ada.fit_sample(X,Y)
         #
 
         print('After OverSampling, the shape of train_X: {}'.format(X_res.shape))
