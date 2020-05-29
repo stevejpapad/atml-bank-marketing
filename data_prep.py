@@ -4,8 +4,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import MinMaxScaler
 
 
-
-
 def prep(data):
     # print(data['y'].value_counts())
     # no     36548 , yes     4640
@@ -31,9 +29,6 @@ def prep(data):
     data['day_of_week'] = data['day_of_week'].map({'fri': 4, 'thu': 3, 'wed': 2, 'tue': 1, 'mon': 0})
 
     return data
-
-
-
 
 
 def min_max_scale(data):
