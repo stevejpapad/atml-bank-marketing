@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import model_selection
-from cost_sensitive_ml import trees, keras_nn, random_trees, ada_trees, cost_trees, cost_sensitive_re_sampling
+from cost_sensitive_ml import exp_trees, exp_random_forests, exp_ada, exp_cost_tree
 from data_prep import prep, min_max_scale
 from imbalance_handling import handle_imbalance
 from explainability import tree_viz, tree_to_text, tree_feature_importance, tree_bar_interpretation
@@ -19,27 +19,10 @@ Y = data.iloc[:, -1]
 # X_res, Y_res = handle_imbalance(X, Y, under=False, over=False, combine=True)
 
 cost_weight = {0: 1, 1: 10}
-
-# Xc, Yc = cost_sensitive_re_sampling(X,Y,cost_weight)
-
-x_train, x_test, y_train, y_test = model_selection.train_test_split(X, Y, test_size=0.1, random_state=5)
-# x_train, x_test, y_train, y_test = model_selection.train_test_split(X_res, Y_res, test_size=0.3, random_state=5)
-# x_train, x_test, y_train, y_test = model_selection.train_test_split(Xc, Yc, test_size=0.3, random_state=5)
-
-# print("--- Decision Trees ---")
-# tree = trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
-# tree = trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
-
-# print("--- Random Forests ---")
-# model = random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
-# model = random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
-
-# print("--- AdaBoosted Decision Trees ---")
-# model = adatrees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
-# model = adatrees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
-
-print("--- Cost CLA Decision Trees ---")
-cost_trees(x_train, x_test, y_train, y_test, cost_weight)
+# exp_trees(X,Y,cost_weight)
+# exp_random_forests(X,Y,cost_weight)
+# exp_ada(X,Y,cost_weight)
+exp_cost_tree(X,Y,cost_weight)
 
 # Explainability section
 
