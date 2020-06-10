@@ -25,6 +25,7 @@ def ada_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive):
     clf.fit(x_train, y_train)
     y_predict = clf.predict(x_test)
     evaluate(y_test, y_predict, cost_weight)
+    return clf
 
 def cost_trees(x_train, x_test, y_train, y_test, cost_weight):
 
@@ -54,8 +55,8 @@ def trees(x_train, x_test, y_train, y_test, cost_weight, sensitive):
     k_fold_evaluation(x_train,y_train,model,cost_weight)
 
     model = model.fit(x_train, y_train)
-    y_predict = model.predict(x_test)
-    evaluate(y_test, y_predict, cost_weight)
+    # y_predict = model.predict(x_test)
+    # evaluate(y_test, y_predict, cost_weight)
 
     return model
 
@@ -176,10 +177,11 @@ def k_fold_evaluation(x,y,model,cost_weight):
 def exp_trees(X, Y, cost_weight):
     x_train, x_test, y_train, y_test = model_selection.train_test_split(X, Y, test_size=0.1, random_state=5)
 
-    print("--- Decision Trees, Re-sampling: NONE, Class Weight: NO ---")
-    trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
+    # print("--- Decision Trees, Re-sampling: NONE, Class Weight: NO ---")
+    # trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
     print("--- Decision Trees, Re-sampling: NONE, Class Weight: YES ---")
-    trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
+    ret_tree = trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
+    return ret_tree, x_train, x_test, y_test
 
     print("--- Decision Trees, Re-sampling: OVER, Class Weight: NO ---")
     xO_train, yO_train = handle_imbalance(x_train, y_train, under=False, over=True, combine=False)
@@ -197,14 +199,15 @@ def exp_trees(X, Y, cost_weight):
 def exp_random_forests(X, Y, cost_weight):
     x_train, x_test, y_train, y_test = model_selection.train_test_split(X, Y, test_size=0.1, random_state=5)
 
-    print("--- Random Forests, Re-sampling: NONE, Class Weight: NO ---")
-    random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
-    print("--- Random Forests, Re-sampling: NONE, Class Weight: YES---")
-    random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
+    # print("--- Random Forests, Re-sampling: NONE, Class Weight: NO ---")
+    # random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
+    # print("--- Random Forests, Re-sampling: NONE, Class Weight: YES---")
+    # random_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
 
     print("--- Random Forests, Re-sampling: OVER, Class Weight: NO ---")
     xO_train, yO_train = handle_imbalance(x_train, y_train, under=False, over=True, combine=False)
-    random_trees(xO_train, x_test, yO_train, y_test, cost_weight, sensitive=False)
+    model = random_trees(xO_train, x_test, yO_train, y_test, cost_weight, sensitive=False)
+    return model, xO_train, x_test, y_test
     print("--- Random Forests, Re-sampling: OVER, Class Weight: YES ---")
     random_trees(xO_train, x_test, yO_train, y_test, cost_weight, sensitive=True)
 
@@ -217,10 +220,11 @@ def exp_random_forests(X, Y, cost_weight):
 def exp_ada(X,Y,cost_weight):
     x_train, x_test, y_train, y_test = model_selection.train_test_split(X, Y, test_size=0.1, random_state=5)
 
-    print("--- AdaBoost Decision Trees ---")
-    ada_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
+    # print("--- AdaBoost Decision Trees ---")
+    # ada_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=False)
     print("--- AdaCost Decision Trees ---")
-    ada_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
+    model = ada_trees(x_train, x_test, y_train, y_test, cost_weight, sensitive=True)
+    return model, x_train, x_test, y_test
 
     print("--- AdaBoost Decision Trees, Re-sampling: OVER ---")
     xO_train, yO_train = handle_imbalance(x_train, y_train, under=False, over=True, combine=False)
