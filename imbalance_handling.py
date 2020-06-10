@@ -20,7 +20,7 @@ def handle_imbalance(X, Y, under, over, combine):
         nm1 = NearMiss(version=1)
         X_res, Y_res = nm1.fit_resample(X, Y)
         print(sorted(Counter(Y_res).items()))
-        #
+
 
         #Tomek Links
         # tl = TomekLinks()
@@ -62,17 +62,17 @@ def handle_imbalance(X, Y, under, over, combine):
         print("Before Combination, counts of label '1': {}".format(sum(Y == 1)))
         print("Before Combination, counts of label '0': {} \n".format(sum(Y == 0)))
 
-        SMOTEENN
-        smote_enn = SMOTEENN(random_state=0)
-        X_res, Y_res = smote_enn.fit_sample(X, Y)
+        # SMOTEENN
+        # smote_enn = SMOTEENN(random_state=0)
+        # X_res, Y_res = smote_enn.fit_sample(X, Y)
+        # print(sorted(Counter(Y_res).items()))
+
+
+        # SMOTETomek
+        smote_tomek = SMOTETomek(random_state=0)
+        X_res, Y_res = smote_tomek.fit_resample(X, Y)
         print(sorted(Counter(Y_res).items()))
 
-
-        # #SMOTETomek
-        # smote_tomek = SMOTETomek(random_state=0)
-        # X_res, Y_res = smote_tomek.fit_resample(X, Y)
-        # print(sorted(Counter(Y_res).items()))
-        #
 
         print('After Combination, the shape of train_X: {}'.format(X_res.shape))
         print('After Combination, the shape of train_y: {} \n'.format(Y_res.shape))

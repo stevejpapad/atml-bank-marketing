@@ -13,18 +13,18 @@ def prep(data):
 
     data[['y']] = data[['y']].replace(['no'], 0)
     data[['y']] = data[['y']].replace(['yes'], 1)
-    data = data.drop('poutcome', axis=1)
-    data = data.drop('contact', axis=1)
+    # data = data.drop('poutcome', axis=1)
+    # data = data.drop('contact', axis=1)
     data = data.drop('day_of_week', axis=1)
     data = data.drop('month', axis=1)
     data = data.drop('duration', axis=1)
     data = data.drop('pdays', axis=1)
 
-    data = pd.get_dummies(data, columns=['marital', 'job', 'education'])  # , 'poutcome'
+    data = pd.get_dummies(data, columns=['marital', 'job', 'education','poutcome'])  # , 'poutcome'
     data['default'] = data['default'].map({'yes': 2, 'no': 1, 'unknown': 0})
     data['housing'] = data['housing'].map({'yes': 2, 'no': 1, 'unknown': 0})
     data['loan'] = data['loan'].map({'yes': 2, 'no': 1, 'unknown': 0})
-    # data['contact'] = data['contact'].map({'cellular': 1, 'telephone': 0})
+    data['contact'] = data['contact'].map({'cellular': 1, 'telephone': 0})
     # data['day_of_week'] = data['day_of_week'].map({'fri': 4, 'thu': 3, 'wed': 2, 'tue': 1, 'mon': 0})
 
     return data
