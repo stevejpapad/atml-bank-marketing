@@ -17,15 +17,15 @@ def handle_imbalance(X, Y, under, over, combine):
         # print(sorted(Counter(Y_res).items()))
         #
         # NearMiss
-        nm1 = NearMiss(version=1)
-        X_res, Y_res = nm1.fit_resample(X, Y)
-        print(sorted(Counter(Y_res).items()))
+        # nm1 = NearMiss(version=1)
+        # X_res, Y_res = nm1.fit_resample(X, Y)
+        # print(sorted(Counter(Y_res).items()))
 
 
         #Tomek Links
-        # tl = TomekLinks()
-        # X_res, Y_res = tl.fit_resample(X, Y)
-        # print('Resampled dataset shape %s' % Counter(Y_res))
+        tl = TomekLinks()
+        X_res, Y_res = tl.fit_resample(X, Y)
+        print('Resampled dataset shape %s' % Counter(Y_res))
         #
 
         print('After Undersampling, the shape of train_X: {}'.format(X_res.shape))
@@ -58,20 +58,20 @@ def handle_imbalance(X, Y, under, over, combine):
         return X_res, Y_res
 
     elif combine:
-        print('Performing combination')
-        print("Before Combination, counts of label '1': {}".format(sum(Y == 1)))
-        print("Before Combination, counts of label '0': {} \n".format(sum(Y == 0)))
+        # print('Performing combination')
+        # print("Before Combination, counts of label '1': {}".format(sum(Y == 1)))
+        # print("Before Combination, counts of label '0': {} \n".format(sum(Y == 0)))
 
         # SMOTEENN
-        # smote_enn = SMOTEENN(random_state=0)
-        # X_res, Y_res = smote_enn.fit_sample(X, Y)
-        # print(sorted(Counter(Y_res).items()))
+        smote_enn = SMOTEENN(random_state=0)
+        X_res, Y_res = smote_enn.fit_sample(X, Y)
+        print(sorted(Counter(Y_res).items()))
 
 
         # SMOTETomek
-        smote_tomek = SMOTETomek(random_state=0)
-        X_res, Y_res = smote_tomek.fit_resample(X, Y)
-        print(sorted(Counter(Y_res).items()))
+        # smote_tomek = SMOTETomek(random_state=0)
+        # X_res, Y_res = smote_tomek.fit_resample(X, Y)
+        # print(sorted(Counter(Y_res).items()))
 
 
         print('After Combination, the shape of train_X: {}'.format(X_res.shape))
